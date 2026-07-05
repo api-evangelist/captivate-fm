@@ -1,0 +1,74 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Captivate
+providerId: captivate-fm
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Podcasting
+- Podcast Hosting
+- Analytics
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Captivate spend. Captivate is billed as a flat monthly (or
+  discounted annual) SaaS subscription in one of three tiers - Personal ($19/mo),
+  Professional ($49/mo), or Business ($99/mo) - each including a fixed monthly
+  download allowance (30,000 / 150,000 / 300,000). There is no metered per-call
+  API charge and no separate API fee; the API is included with any active
+  subscription. The dominant cost driver is audience size (downloads), which
+  determines the tier a podcaster must sit on. This is a predictable,
+  subscription-based cost rather than usage-metered cloud spend.
+notes: >-
+  Prices confirmed 2026-07-05 from Captivate's pricing FAQ; verify current
+  numbers on the pricing page. Overage behavior when a plan's download allowance
+  is exceeded (upgrade prompt vs. per-download overage) is not precisely
+  documented and is left unreconciled.
+sources:
+- https://www.captivate.fm/pricing
+- https://help.captivate.fm/en/articles/4575980-plans-pricing-faq
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Captivate
+serviceCategory: Media and Podcast Hosting
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly or Annual
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+meters:
+- name: subscription
+  description: Flat monthly or annual subscription fee for the chosen plan tier.
+  unit: subscription
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: downloads
+  description: Episode downloads served in the billing month; determines which plan tier is required.
+  unit: downloads
+  aggregation: sum
+  dimensions:
+  - account
+  - show
+principles:
+- name: Visibility
+  description: Track monthly downloads per account against the plan allowance to anticipate a required tier upgrade.
+- name: Allocation
+  description: Attribute the single subscription across the multiple shows hosted under one account when charging back to teams.
+- name: Optimization
+  description: Choose the lowest tier whose download allowance covers audience size; prefer annual billing for the built-in discount.
+- name: Accountability
+  description: Assign an owner for the Captivate subscription and review downloads-vs-allowance monthly before renewal.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

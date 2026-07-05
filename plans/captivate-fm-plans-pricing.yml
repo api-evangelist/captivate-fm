@@ -1,0 +1,171 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Captivate
+providerId: captivate-fm
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: true
+tags:
+- Podcasting
+- Podcast Hosting
+- Analytics
+- Plans
+description: >-
+  Captivate sells three flat monthly subscription plans, differentiated by the
+  monthly download allowance. All features - including the public API, unlimited
+  podcasts under one account, unlimited team members, dynamic content insertion,
+  analytics, and podcast websites - are available on every plan; only the
+  download allowance changes. Every plan is billed in USD (EUR and GBP options
+  also offered) and includes a 30-day free trial. Annual billing is discounted
+  relative to monthly. There is no separate charge to use the API; API access is
+  included with any active subscription.
+notes: >-
+  Prices confirmed 2026-07-05 from the Captivate Plans & Pricing FAQ. Monthly
+  prices are $19 / $49 / $99; annual prices are $204 / $528 / $1,080 (which work
+  out to roughly $17 / $44 / $90 per month). Verify current numbers on the
+  pricing page, as Captivate periodically adjusts tiers and download allowances.
+sources:
+- https://www.captivate.fm/pricing
+- https://help.captivate.fm/en/articles/4575980-plans-pricing-faq
+currency: USD
+billingFrequency: Monthly or Annual
+freeTrialDays: 30
+plans:
+- id: captivate-personal
+  name: Personal
+  type: paid
+  description: >-
+    Entry plan for individual podcasters, with a 30,000 downloads/month
+    allowance. Includes all Captivate features, unlimited podcasts and team
+    members, analytics, and full API access.
+  entries:
+  - label: Monthly Subscription
+    name: personal_monthly
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '19.00'
+    userMultiplied: false
+  - label: Annual Subscription
+    name: personal_annual
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: '204.00'
+    userMultiplied: false
+  - label: Included Monthly Downloads
+    name: personal_downloads
+    type: usage
+    metric: downloads
+    limit: 30000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: Public API Access
+  - name: Unlimited Podcasts
+  - name: Unlimited Team Members
+  - name: Analytics and Insights
+  - name: Dynamic Content Insertion
+  - name: Podcast Website
+- id: captivate-professional
+  name: Professional
+  type: paid
+  description: >-
+    Mid tier with a 150,000 downloads/month allowance for growing shows. Same
+    full feature set including API access.
+  entries:
+  - label: Monthly Subscription
+    name: professional_monthly
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '49.00'
+    userMultiplied: false
+  - label: Annual Subscription
+    name: professional_annual
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: '528.00'
+    userMultiplied: false
+  - label: Included Monthly Downloads
+    name: professional_downloads
+    type: usage
+    metric: downloads
+    limit: 150000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: Public API Access
+  - name: Unlimited Podcasts
+  - name: Unlimited Team Members
+  - name: Analytics and Insights
+  - name: Dynamic Content Insertion
+  - name: Podcast Website
+- id: captivate-business
+  name: Business
+  type: paid
+  description: >-
+    Top published tier with a 300,000 downloads/month allowance for
+    high-volume and business podcasters. Same full feature set including API
+    access.
+  entries:
+  - label: Monthly Subscription
+    name: business_monthly
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '99.00'
+    userMultiplied: false
+  - label: Annual Subscription
+    name: business_annual
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: '1080.00'
+    userMultiplied: false
+  - label: Included Monthly Downloads
+    name: business_downloads
+    type: usage
+    metric: downloads
+    limit: 300000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: Public API Access
+  - name: Unlimited Podcasts
+  - name: Unlimited Team Members
+  - name: Analytics and Insights
+  - name: Dynamic Content Insertion
+  - name: Podcast Website
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

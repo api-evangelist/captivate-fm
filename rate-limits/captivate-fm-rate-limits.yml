@@ -1,0 +1,58 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Captivate
+providerId: captivate-fm
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Podcasting
+- Podcast Hosting
+- Rate Limiting
+- Quotas
+description: >-
+  Captivate does not publish numeric rate limits for its public API in the
+  Postman documentation at docs.captivate.fm. Access is per-account and
+  authenticated with a Bearer token obtained by exchanging a user ID and API
+  token. The commercial constraint on an account is the plan's monthly download
+  allowance (30,000 / 150,000 / 300,000 depending on tier), which governs how
+  much listening traffic the hosting will serve - it is not a per-request API
+  cap. No per-minute or per-hour request ceiling, burst limit, or 429 policy is
+  documented as of the review date.
+notes: >-
+  All limit values below are UNCONFIRMED / MODELED. Captivate has not published
+  API request-rate numbers; the only published account limit is the monthly
+  download allowance, which is a hosting/delivery quota rather than an API rate
+  limit. Clients should implement conservative backoff and retry on any 429 or
+  5xx response. Verify with Captivate support (api@captivate.fm) for
+  high-volume or automated integrations.
+sources:
+- https://docs.captivate.fm/
+- https://help.captivate.fm/en/articles/4575980-plans-pricing-faq
+responseCodes:
+  throttled: 429
+limits:
+- name: API Requests
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No numeric per-account or per-endpoint request-rate limit is documented for the Captivate API.
+- name: Monthly Download Allowance
+  scope: account
+  metric: downloads
+  limit: per plan (30000 / 150000 / 300000 per month)
+  notes: Plan-level hosting/delivery quota on episode downloads, not an API request cap.
+- name: Media Upload Size
+  scope: request
+  metric: bytes
+  limit: not published
+  notes: Audio upload size limits are not documented in the public API reference (modeled as unconfirmed).
+policies:
+- name: Authentication Required
+  description: All endpoints except POST /authenticate/token require a valid Bearer token in the Authorization header.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on any 429 or 5xx response (recommended; not documented by Captivate).
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

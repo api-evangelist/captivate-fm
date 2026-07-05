@@ -1,0 +1,317 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Captivate API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Authentication", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Authenticate User", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.captivate.fm/authenticate/token",
+            "body": { "type": "form", "data": "username={userId}&token={apiToken}" }
+          },
+          "docs": "Exchange the user's ID and API token for a Bearer token used in all other requests."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Users", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get User", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/users/:id",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The user ID (UUID)." }]
+          },
+          "docs": "Get a user record by user ID."
+        },
+        {
+          "info": { "name": "Get Users Shows", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/users/:id/shows",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The user ID (UUID)." }]
+          },
+          "docs": "The shows this user can access regardless of role."
+        },
+        {
+          "info": { "name": "Get Users Managed Shows", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/users/:id/shows/manager",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The user ID (UUID)." }]
+          },
+          "docs": "The shows the user is manager or owner of."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Shows", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get Show", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/shows/:id/",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The show ID (UUID)." }]
+          },
+          "docs": "Get the show information by the show ID."
+        },
+        {
+          "info": { "name": "Update Show", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.captivate.fm/shows/:id",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The show ID (UUID)." }],
+            "body": { "type": "form", "data": "title=My Demo Show&language=en&type=episodic" }
+          },
+          "docs": "Update the show's metadata (title, description, categories, author, links, etc.)."
+        },
+        {
+          "info": { "name": "Create Show Artwork", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.captivate.fm/shows/:id/artwork",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The show ID (UUID)." }],
+            "body": { "type": "form", "data": "file=@artwork.png" }
+          },
+          "docs": "Upload square JPG/PNG artwork in RGB colorspace, minimum 1400px."
+        },
+        {
+          "info": { "name": "Get Show Feed URL", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/shows/:id/feed",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The show ID (UUID)." }]
+          },
+          "docs": "Get the public RSS feed URL for this show."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Episodes", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get Show Episodes", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/shows/:id/episodes",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The show ID (UUID)." }]
+          },
+          "docs": "All episodes for this show plus a total count."
+        },
+        {
+          "info": { "name": "Get Show Scheduled Episodes", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/shows/:id/episodes/scheduled",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The show ID (UUID)." }]
+          },
+          "docs": "All scheduled episodes for this show plus a count."
+        },
+        {
+          "info": { "name": "Get Episode", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/episodes/:id",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The episode ID (UUID)." }]
+          },
+          "docs": "Get the full information for an episode."
+        },
+        {
+          "info": { "name": "Create Episode", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.captivate.fm/episodes",
+            "body": { "type": "form", "data": "shows_id={showId}&title=My Demo Episode&media_id={mediaId}&status=Draft" }
+          },
+          "docs": "Create an episode, linking uploaded media, show notes, season/episode numbers, publish date and status."
+        },
+        {
+          "info": { "name": "Update Episode", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.captivate.fm/episodes/:id",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The episode ID (UUID)." }],
+            "body": { "type": "form", "data": "shows_id={showId}&title=My Demo Episode&status=Draft" }
+          },
+          "docs": "Update an existing episode."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Media", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get Media", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/media/:id",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The media ID (UUID)." }]
+          },
+          "docs": "Get the information for this media ID."
+        },
+        {
+          "info": { "name": "Upload Media", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.captivate.fm/shows/:id/media",
+            "params": [{ "name": "id", "value": "", "type": "path", "description": "The show ID (UUID)." }],
+            "body": { "type": "form", "data": "file=@episode.mp3" }
+          },
+          "docs": "Upload an audio media file assigned to the given show; Captivate processes it server-side."
+        },
+        {
+          "info": { "name": "Get Show Media", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/shows/:id/media?offset=0&order=created_at&sort=DESC",
+            "params": [
+              { "name": "id", "value": "", "type": "path", "description": "The show ID (UUID)." },
+              { "name": "offset", "value": "0", "type": "query" },
+              { "name": "order", "value": "created_at", "type": "query" },
+              { "name": "sort", "value": "DESC", "type": "query" }
+            ]
+          },
+          "docs": "Get all media for the given show ID. Media is scoped to a single show."
+        },
+        {
+          "info": { "name": "Search Show Media", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/shows/:id/media/search?search=Search Query&offset=0&order=created_at&sort=DESC",
+            "params": [
+              { "name": "id", "value": "", "type": "path", "description": "The show ID (UUID)." },
+              { "name": "search", "value": "Search Query", "type": "query" },
+              { "name": "offset", "value": "0", "type": "query" },
+              { "name": "order", "value": "created_at", "type": "query" },
+              { "name": "sort", "value": "DESC", "type": "query" }
+            ]
+          },
+          "docs": "Search a show's media by media name."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Analytics", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get Overview Analytics for Podcast", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/insights/:showId/overview?start=2022-09-01T00:00:00.000Z&end=2022-09-01T00:00:00.000Z&includeTopEpisodes=true",
+            "params": [{ "name": "showId", "value": "", "type": "path" }]
+          },
+          "docs": "Overview analytics for a podcast over a date range."
+        },
+        {
+          "info": { "name": "Get Overview Analytics for a specific Episode", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/insights/:showId/overview/:episodeId?start=2022-09-01T00:00:00.000Z&end=2022-09-01T00:00:00.000Z",
+            "params": [{ "name": "showId", "value": "", "type": "path" }, { "name": "episodeId", "value": "", "type": "path" }]
+          },
+          "docs": "Overview analytics for a specific episode over a date range."
+        },
+        {
+          "info": { "name": "Get Average Analytics for Podcast", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/insights/:showId/averages?intervalDays=28",
+            "params": [{ "name": "showId", "value": "", "type": "path" }, { "name": "intervalDays", "value": "28", "type": "query" }]
+          },
+          "docs": "Average analytics for a podcast over an interval window."
+        },
+        {
+          "info": { "name": "Get All-Time Total for Podcast", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/insights/:showId/total",
+            "params": [{ "name": "showId", "value": "", "type": "path" }]
+          },
+          "docs": "All-time total analytics for a podcast."
+        },
+        {
+          "info": { "name": "Get All-Time Total for Episode", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/insights/:showId/total/:episodeId",
+            "params": [{ "name": "showId", "value": "", "type": "path" }, { "name": "episodeId", "value": "", "type": "path" }]
+          },
+          "docs": "All-time total analytics for a specific episode."
+        },
+        {
+          "info": { "name": "Get Month-by-Month Analytics for Podcast", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/insights/:showId/monthly",
+            "params": [{ "name": "showId", "value": "", "type": "path" }]
+          },
+          "docs": "Month-by-month analytics series for a podcast."
+        },
+        {
+          "info": { "name": "Get Month-by-Month Analytics for Episode", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/insights/:showId/monthly/:episodeId",
+            "params": [{ "name": "showId", "value": "", "type": "path" }, { "name": "episodeId", "value": "", "type": "path" }]
+          },
+          "docs": "Month-by-month analytics series for a specific episode."
+        },
+        {
+          "info": { "name": "Get Analytics in Range for Podcast", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.captivate.fm/insights/:showId/range",
+            "params": [{ "name": "showId", "value": "", "type": "path" }],
+            "body": { "type": "json", "data": "{\n  \"start\": \"2022-09-01T00:00:00.000Z\",\n  \"end\": \"2022-09-01T00:00:00.000Z\",\n  \"interval\": \"1d\",\n  \"timezone\": \"America/New_York\",\n  \"countryCode\": null,\n  \"types\": [\"byLocation\", \"byUserAgentBrowser\", \"byUserAgentOs\", \"byUserAgentDevice\", \"byEpisode\", \"byPrivateSubscriber\"]\n}" }
+          },
+          "docs": "Analytics for a podcast over an arbitrary date range, broken down by dimension types."
+        },
+        {
+          "info": { "name": "Get Analytics in Range for Episode", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.captivate.fm/insights/:showId/range/:episodeId",
+            "params": [{ "name": "showId", "value": "", "type": "path" }, { "name": "episodeId", "value": "", "type": "path" }],
+            "body": { "type": "json", "data": "{\n  \"start\": \"2022-09-01T00:00:00.000Z\",\n  \"end\": \"2022-09-01T00:00:00.000Z\",\n  \"interval\": \"1d\",\n  \"timezone\": \"America/New_York\",\n  \"countryCode\": null,\n  \"types\": [\"byLocation\", \"byUserAgentBrowser\", \"byUserAgentOs\", \"byUserAgentDevice\", \"byPrivateSubscriber\"]\n}" }
+          },
+          "docs": "Analytics for a specific episode over an arbitrary date range."
+        },
+        {
+          "info": { "name": "Get Analytics Comparison between Episodes", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.captivate.fm/insights/:showId/compare",
+            "params": [{ "name": "showId", "value": "", "type": "path" }],
+            "body": { "type": "json", "data": "[\n  { \"id\": \"{episodeId}\", \"title\": \"My Episode Title\", \"published_date\": \"2022-09-01T00:00:00.000Z\" }\n]" }
+          },
+          "docs": "Compare analytics across a set of episodes."
+        },
+        {
+          "info": { "name": "Get Web Player Analytics for Podcast", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.captivate.fm/insights/:showId/web-player/:episodeId",
+            "params": [{ "name": "showId", "value": "", "type": "path" }, { "name": "episodeId", "value": "", "type": "path" }],
+            "body": { "type": "json", "data": "{\n  \"dateRange\": { \"gte\": \"2022-09-01T00:00:00.000Z\", \"lte\": \"2022-09-01T00:00:00.000Z\" },\n  \"duration\": \"1700\",\n  \"timezone\": \"America/New_York\"\n}" }
+          },
+          "docs": "Web-player analytics for a podcast, scoped to an episode context."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

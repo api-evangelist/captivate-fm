@@ -1,0 +1,414 @@
+{
+  "info": {
+    "name": "Captivate API",
+    "description": "The World's Only Growth-Oriented Podcast Host. Public REST API for Captivate podcast hosting, distribution, and analytics. Endpoints transcribed from Captivate's public Postman documentation at https://docs.captivate.fm.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{bearerToken}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.captivate.fm" },
+    { "key": "bearerToken", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Authenticate User",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "username", "value": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", "type": "text", "description": "The Captivate user ID." },
+                { "key": "token", "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", "type": "text", "description": "The user's API token." }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/authenticate/token",
+              "host": ["{{baseUrl}}"],
+              "path": ["authenticate", "token"]
+            },
+            "description": "All requests must be authenticated using the token for the user; get the token using the user's ID and their API token."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/users/:id", "host": ["{{baseUrl}}"], "path": ["users", ":id"], "variable": [{ "key": "id", "value": "" }] }
+          }
+        },
+        {
+          "name": "Get Users Shows",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/users/:id/shows", "host": ["{{baseUrl}}"], "path": ["users", ":id", "shows"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "The shows that this user can access regardless of what role they are."
+          }
+        },
+        {
+          "name": "Get Users Managed Shows",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/users/:id/shows/manager", "host": ["{{baseUrl}}"], "path": ["users", ":id", "shows", "manager"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "The shows the user is manager or owner of; they can create/invite new users to these shows."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shows",
+      "item": [
+        {
+          "name": "Get Show",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/shows/:id/", "host": ["{{baseUrl}}"], "path": ["shows", ":id", ""], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Get the show information by the show ID."
+          }
+        },
+        {
+          "name": "Update Show",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "My Demo Show", "type": "text" },
+                { "key": "description", "value": "Demo description for this show.", "type": "text" },
+                { "key": "summary", "value": "Demo summary.", "type": "text" },
+                { "key": "subtitle", "value": "The demo show for Captivate API.", "type": "text" },
+                { "key": "author", "value": "Demo User", "type": "text" },
+                { "key": "name", "value": "Demo User", "type": "text" },
+                { "key": "categories[0]", "value": "01.00", "type": "text" },
+                { "key": "itunes_email", "value": "demo@user.com", "type": "text" },
+                { "key": "copyright", "value": "Copyright Demo User", "type": "text" },
+                { "key": "explicit", "value": "clean", "type": "text" },
+                { "key": "order", "value": "DESC", "type": "text" },
+                { "key": "limit", "value": "20", "type": "text" },
+                { "key": "type", "value": "episodic", "type": "text" },
+                { "key": "language", "value": "en", "type": "text" },
+                { "key": "donation_link", "value": "https://demo.com/support-me", "type": "text" },
+                { "key": "link", "value": "https://demo.com", "type": "text" },
+                { "key": "third_party_analytics", "value": "https://chtbl.com/track/", "type": "text" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/shows/:id", "host": ["{{baseUrl}}"], "path": ["shows", ":id"], "variable": [{ "key": "id", "value": "" }] }
+          }
+        },
+        {
+          "name": "Create Show Artwork",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": { "mode": "formdata", "formdata": [{ "key": "file", "type": "file", "src": [] }] },
+            "url": { "raw": "{{baseUrl}}/shows/:id/artwork", "host": ["{{baseUrl}}"], "path": ["shows", ":id", "artwork"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Upload square JPG/PNG artwork in RGB colorspace, minimum 1400px."
+          }
+        },
+        {
+          "name": "Get Show Feed URL",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/shows/:id/feed", "host": ["{{baseUrl}}"], "path": ["shows", ":id", "feed"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Get the RSS feed URL for this show."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Episodes",
+      "item": [
+        {
+          "name": "Get Show Episodes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/shows/:id/episodes", "host": ["{{baseUrl}}"], "path": ["shows", ":id", "episodes"], "variable": [{ "key": "id", "value": "" }] }
+          }
+        },
+        {
+          "name": "Get Show Scheduled Episodes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/shows/:id/episodes/scheduled", "host": ["{{baseUrl}}"], "path": ["shows", ":id", "episodes", "scheduled"], "variable": [{ "key": "id", "value": "" }] }
+          }
+        },
+        {
+          "name": "Get Episode",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/episodes/:id", "host": ["{{baseUrl}}"], "path": ["episodes", ":id"], "variable": [{ "key": "id", "value": "" }] }
+          }
+        },
+        {
+          "name": "Create Episode",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "shows_id", "value": "ssssssss-ssss-ssss-ssss-ssssssssssss", "type": "text" },
+                { "key": "title", "value": "My Demo Episode", "type": "text" },
+                { "key": "itunes_title", "value": "My Demo Episode for Apple Podcasts", "type": "text" },
+                { "key": "media_id", "value": "mmmmmmmm-mmmm-mmmm-mmmm-mmmmmmmmmmmm", "type": "text" },
+                { "key": "date", "value": "YYYY-MM-DD HH:mm:ss", "type": "text" },
+                { "key": "status", "value": "Draft", "type": "text" },
+                { "key": "shownotes", "value": "Demo shownotes for this episode.", "type": "text" },
+                { "key": "summary", "value": "Demo episode summary.", "type": "text" },
+                { "key": "itunes_subtitle", "value": "My Demo Episode - Subtitle", "type": "text" },
+                { "key": "author", "value": "Demo User", "type": "text" },
+                { "key": "episode_art", "value": "https://artwork.captivate.fm/xxxxx-xxx-xxx-xxx/artwork.jpg", "type": "text" },
+                { "key": "explicit", "value": "", "type": "text" },
+                { "key": "episode_type", "value": "full", "type": "text" },
+                { "key": "episode_season", "value": "1", "type": "text" },
+                { "key": "episode_number", "value": "1", "type": "text" },
+                { "key": "donation_link", "value": "https://demo.com/support-me", "type": "text" },
+                { "key": "donation_text", "value": "Support us on Patreon", "type": "text" },
+                { "key": "link", "value": "https://demo.com", "type": "text" },
+                { "key": "itunes_block", "value": "false", "type": "text" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/episodes", "host": ["{{baseUrl}}"], "path": ["episodes"] }
+          }
+        },
+        {
+          "name": "Update Episode",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "shows_id", "value": "ssssssss-ssss-ssss-ssss-ssssssssssss", "type": "text" },
+                { "key": "title", "value": "My Demo Episode", "type": "text" },
+                { "key": "media_id", "value": "mmmmmmmm-mmmm-mmmm-mmmm-mmmmmmmmmmmm", "type": "text" },
+                { "key": "date", "value": "YYYY-MM-DD HH:mm:ss", "type": "text" },
+                { "key": "status", "value": "Draft", "type": "text" },
+                { "key": "episode_season", "value": "1", "type": "text" },
+                { "key": "episode_number", "value": "1", "type": "text" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/episodes/:id", "host": ["{{baseUrl}}"], "path": ["episodes", ":id"], "variable": [{ "key": "id", "value": "" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Media",
+      "item": [
+        {
+          "name": "Get Media",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/media/:id", "host": ["{{baseUrl}}"], "path": ["media", ":id"], "variable": [{ "key": "id", "value": "" }] }
+          }
+        },
+        {
+          "name": "Upload Media",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": { "mode": "formdata", "formdata": [{ "key": "file", "type": "file", "src": [] }] },
+            "url": { "raw": "{{baseUrl}}/shows/:id/media", "host": ["{{baseUrl}}"], "path": ["shows", ":id", "media"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Upload a media file assigned to this show ID."
+          }
+        },
+        {
+          "name": "Get Show Media",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/shows/:id/media?offset=0&order=created_at&sort=DESC",
+              "host": ["{{baseUrl}}"],
+              "path": ["shows", ":id", "media"],
+              "query": [
+                { "key": "offset", "value": "0" },
+                { "key": "order", "value": "created_at" },
+                { "key": "sort", "value": "DESC" }
+              ],
+              "variable": [{ "key": "id", "value": "" }]
+            }
+          }
+        },
+        {
+          "name": "Search Show Media",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/shows/:id/media/search?search=Search Query&offset=0&order=created_at&sort=DESC",
+              "host": ["{{baseUrl}}"],
+              "path": ["shows", ":id", "media", "search"],
+              "query": [
+                { "key": "search", "value": "Search Query" },
+                { "key": "offset", "value": "0" },
+                { "key": "order", "value": "created_at" },
+                { "key": "sort", "value": "DESC" }
+              ],
+              "variable": [{ "key": "id", "value": "" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "item": [
+        {
+          "name": "Get Overview Analytics for Podcast",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/insights/:showId/overview?start=2022-09-01T00:00:00.000Z&end=2022-09-01T00:00:00.000Z&includeTopEpisodes=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["insights", ":showId", "overview"],
+              "query": [
+                { "key": "start", "value": "2022-09-01T00:00:00.000Z" },
+                { "key": "end", "value": "2022-09-01T00:00:00.000Z" },
+                { "key": "includeTopEpisodes", "value": "true" }
+              ],
+              "variable": [{ "key": "showId", "value": "" }]
+            }
+          }
+        },
+        {
+          "name": "Get Overview Analytics for a specific Episode",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/insights/:showId/overview/:episodeId?start=2022-09-01T00:00:00.000Z&end=2022-09-01T00:00:00.000Z",
+              "host": ["{{baseUrl}}"],
+              "path": ["insights", ":showId", "overview", ":episodeId"],
+              "query": [
+                { "key": "start", "value": "2022-09-01T00:00:00.000Z" },
+                { "key": "end", "value": "2022-09-01T00:00:00.000Z" }
+              ],
+              "variable": [{ "key": "showId", "value": "" }, { "key": "episodeId", "value": "" }]
+            }
+          }
+        },
+        {
+          "name": "Get Average Analytics for Podcast",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/insights/:showId/averages?intervalDays=28",
+              "host": ["{{baseUrl}}"],
+              "path": ["insights", ":showId", "averages"],
+              "query": [{ "key": "intervalDays", "value": "28" }],
+              "variable": [{ "key": "showId", "value": "" }]
+            }
+          }
+        },
+        {
+          "name": "Get All-Time Total for Podcast",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/insights/:showId/total", "host": ["{{baseUrl}}"], "path": ["insights", ":showId", "total"], "variable": [{ "key": "showId", "value": "" }] }
+          }
+        },
+        {
+          "name": "Get All-Time Total for Episode",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/insights/:showId/total/:episodeId", "host": ["{{baseUrl}}"], "path": ["insights", ":showId", "total", ":episodeId"], "variable": [{ "key": "showId", "value": "" }, { "key": "episodeId", "value": "" }] }
+          }
+        },
+        {
+          "name": "Get Month-by-Month Analytics for Podcast",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/insights/:showId/monthly", "host": ["{{baseUrl}}"], "path": ["insights", ":showId", "monthly"], "variable": [{ "key": "showId", "value": "" }] }
+          }
+        },
+        {
+          "name": "Get Month-by-Month Analytics for Episode",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/insights/:showId/monthly/:episodeId", "host": ["{{baseUrl}}"], "path": ["insights", ":showId", "monthly", ":episodeId"], "variable": [{ "key": "showId", "value": "" }, { "key": "episodeId", "value": "" }] }
+          }
+        },
+        {
+          "name": "Get Analytics in Range for Podcast",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start\": \"2022-09-01T00:00:00.000Z\",\n  \"end\": \"2022-09-01T00:00:00.000Z\",\n  \"interval\": \"1d\",\n  \"timezone\": \"America/New_York\",\n  \"countryCode\": null,\n  \"types\": [\"byLocation\", \"byUserAgentBrowser\", \"byUserAgentOs\", \"byUserAgentDevice\", \"byEpisode\", \"byPrivateSubscriber\"]\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/insights/:showId/range", "host": ["{{baseUrl}}"], "path": ["insights", ":showId", "range"], "variable": [{ "key": "showId", "value": "" }] }
+          }
+        },
+        {
+          "name": "Get Analytics in Range for Episode",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start\": \"2022-09-01T00:00:00.000Z\",\n  \"end\": \"2022-09-01T00:00:00.000Z\",\n  \"interval\": \"1d\",\n  \"timezone\": \"America/New_York\",\n  \"countryCode\": null,\n  \"types\": [\"byLocation\", \"byUserAgentBrowser\", \"byUserAgentOs\", \"byUserAgentDevice\", \"byPrivateSubscriber\"]\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/insights/:showId/range/:episodeId", "host": ["{{baseUrl}}"], "path": ["insights", ":showId", "range", ":episodeId"], "variable": [{ "key": "showId", "value": "" }, { "key": "episodeId", "value": "" }] }
+          }
+        },
+        {
+          "name": "Get Analytics Comparison between Episodes",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  { \"id\": \"{{EPISODE_ID}}\", \"title\": \"My Episode Title\", \"published_date\": \"2022-09-01T00:00:00.000Z\" },\n  { \"id\": \"{{EPISODE_ID}}\", \"title\": \"My Episode Title 2\", \"published_date\": \"2022-09-01T00:00:00.000Z\" }\n]"
+            },
+            "url": { "raw": "{{baseUrl}}/insights/:showId/compare", "host": ["{{baseUrl}}"], "path": ["insights", ":showId", "compare"], "variable": [{ "key": "showId", "value": "" }] }
+          }
+        },
+        {
+          "name": "Get Web Player Analytics for Podcast",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dateRange\": { \"gte\": \"2022-09-01T00:00:00.000Z\", \"lte\": \"2022-09-01T00:00:00.000Z\" },\n  \"duration\": \"1700\",\n  \"timezone\": \"America/New_York\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/insights/:showId/web-player/:episodeId", "host": ["{{baseUrl}}"], "path": ["insights", ":showId", "web-player", ":episodeId"], "variable": [{ "key": "showId", "value": "" }, { "key": "episodeId", "value": "" }] }
+          }
+        }
+      ]
+    }
+  ]
+}
