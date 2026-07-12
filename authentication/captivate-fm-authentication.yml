@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/captivate-fm-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: 'Bearer token obtained from POST /authenticate/token. Sent as Authorization:
+    Bearer {token}.'
+  sources:
+  - openapi/captivate-fm-openapi.yml

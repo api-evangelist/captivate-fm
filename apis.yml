@@ -131,6 +131,10 @@ apis:
     broken down by location, browser, OS, device and episode, episode comparisons,
     and web-player analytics.
 common:
+- type: DomainSecurity
+  url: security/captivate-fm-domain-security.yml
+- type: Authentication
+  url: authentication/captivate-fm-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/captivate-fm
 - type: Website
