@@ -131,6 +131,8 @@ apis:
     broken down by location, browser, OS, device and episode, episode comparisons,
     and web-player analytics.
 common:
+- type: AgenticAccess
+  url: agentic-access/captivate-fm-agentic-access.yml
 - type: DomainSecurity
   url: security/captivate-fm-domain-security.yml
 - type: Authentication
