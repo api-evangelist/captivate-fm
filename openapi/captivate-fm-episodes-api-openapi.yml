@@ -1,0 +1,205 @@
+openapi: 3.1.0
+info:
+  title: Captivate Analytics Episodes API
+  version: '1.0'
+  description: Public REST API for the Captivate podcast hosting, distribution, and analytics platform. Authenticate a user with their user ID and API token to obtain a Bearer token, then manage shows, episodes, and media and read detailed listening analytics (insights). Endpoints, paths, methods, and request fields in this document are transcribed from Captivate's public Postman documentation at https://docs.captivate.fm. Response schemas are modeled honestly - Captivate's public docs describe the requests and fields but do not publish full JSON response schemas, so response bodies below are generic objects and marked as modeled.
+  contact:
+    name: Captivate API Support
+    email: api@captivate.fm
+    url: https://docs.captivate.fm/
+  x-endpoints-source: Paths and request fields confirmed from the public Captivate API Postman collection (docs.captivate.fm). Response bodies are modeled.
+servers:
+- url: https://api.captivate.fm
+  description: Captivate production API
+security:
+- bearerAuth: []
+tags:
+- name: Episodes
+  description: List, read, create, and update episodes.
+paths:
+  /shows/{id}/episodes:
+    get:
+      operationId: getShowEpisodes
+      tags:
+      - Episodes
+      summary: Get Show Episodes
+      description: A full breakdown of all the episodes for this show plus a count of the total number of episodes.
+      parameters:
+      - $ref: '#/components/parameters/ShowId'
+      responses:
+        '200':
+          description: The show's episodes and a count (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /shows/{id}/episodes/scheduled:
+    get:
+      operationId: getShowScheduledEpisodes
+      tags:
+      - Episodes
+      summary: Get Show Scheduled Episodes
+      description: All scheduled (future) episodes for this show plus a count.
+      parameters:
+      - $ref: '#/components/parameters/ShowId'
+      responses:
+        '200':
+          description: The show's scheduled episodes and a count (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /episodes/{id}:
+    get:
+      operationId: getEpisode
+      tags:
+      - Episodes
+      summary: Get Episode
+      description: Get the full information for an episode by episode ID.
+      parameters:
+      - $ref: '#/components/parameters/EpisodeId'
+      responses:
+        '200':
+          description: The episode record (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: updateEpisode
+      tags:
+      - Episodes
+      summary: Update Episode
+      description: Update an existing episode.
+      parameters:
+      - $ref: '#/components/parameters/EpisodeId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EpisodeInput'
+      responses:
+        '200':
+          description: The updated episode (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /episodes:
+    post:
+      operationId: createEpisode
+      tags:
+      - Episodes
+      summary: Create Episode
+      description: Create an episode with the following parameters.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EpisodeInput'
+      responses:
+        '200':
+          description: The created episode (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    GenericObject:
+      type: object
+      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
+      additionalProperties: true
+    EpisodeInput:
+      type: object
+      description: Fields for creating or updating an episode (multipart form-data).
+      required:
+      - shows_id
+      - title
+      properties:
+        shows_id:
+          type: string
+          description: The show ID (UUID) the episode belongs to.
+        title:
+          type: string
+          example: My Demo Episode
+        itunes_title:
+          type: string
+        media_id:
+          type: string
+          description: The uploaded media ID (UUID) to attach as the episode audio.
+        date:
+          type: string
+          description: Publish date, format YYYY-MM-DD HH:mm:ss.
+        status:
+          type: string
+          description: e.g. Draft, Published.
+          example: Draft
+        shownotes:
+          type: string
+        summary:
+          type: string
+        itunes_subtitle:
+          type: string
+        author:
+          type: string
+        episode_art:
+          type: string
+          description: URL to episode artwork.
+        explicit:
+          type: string
+        episode_type:
+          type: string
+          description: e.g. full, trailer, bonus.
+        episode_season:
+          type: string
+        episode_number:
+          type: string
+        donation_link:
+          type: string
+        donation_text:
+          type: string
+        link:
+          type: string
+        itunes_block:
+          type: string
+          description: 'true or false: whether to block the episode from Apple Podcasts.'
+  parameters:
+    ShowId:
+      name: id
+      in: path
+      required: true
+      description: The show ID (UUID).
+      schema:
+        type: string
+    EpisodeId:
+      name: id
+      in: path
+      required: true
+      description: The episode ID (UUID).
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenericObject'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Bearer token obtained from POST /authenticate/token. Sent as Authorization: Bearer {token}.'

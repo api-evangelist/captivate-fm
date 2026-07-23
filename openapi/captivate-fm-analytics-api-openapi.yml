@@ -1,0 +1,363 @@
+openapi: 3.1.0
+info:
+  title: Captivate Analytics API
+  version: '1.0'
+  description: Public REST API for the Captivate podcast hosting, distribution, and analytics platform. Authenticate a user with their user ID and API token to obtain a Bearer token, then manage shows, episodes, and media and read detailed listening analytics (insights). Endpoints, paths, methods, and request fields in this document are transcribed from Captivate's public Postman documentation at https://docs.captivate.fm. Response schemas are modeled honestly - Captivate's public docs describe the requests and fields but do not publish full JSON response schemas, so response bodies below are generic objects and marked as modeled.
+  contact:
+    name: Captivate API Support
+    email: api@captivate.fm
+    url: https://docs.captivate.fm/
+  x-endpoints-source: Paths and request fields confirmed from the public Captivate API Postman collection (docs.captivate.fm). Response bodies are modeled.
+servers:
+- url: https://api.captivate.fm
+  description: Captivate production API
+security:
+- bearerAuth: []
+tags:
+- name: Analytics
+  description: Podcast and episode listening analytics (insights).
+paths:
+  /insights/{showId}/overview:
+    get:
+      operationId: getPodcastOverviewAnalytics
+      tags:
+      - Analytics
+      summary: Get Overview Analytics for Podcast
+      description: Overview analytics for a podcast over a date range.
+      parameters:
+      - $ref: '#/components/parameters/InsightsShowId'
+      - $ref: '#/components/parameters/StartQuery'
+      - $ref: '#/components/parameters/EndQuery'
+      - name: includeTopEpisodes
+        in: query
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: Podcast overview analytics (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /insights/{showId}/overview/{episodeId}:
+    get:
+      operationId: getEpisodeOverviewAnalytics
+      tags:
+      - Analytics
+      summary: Get Overview Analytics for a specific Episode
+      description: Overview analytics for a specific episode over a date range.
+      parameters:
+      - $ref: '#/components/parameters/InsightsShowId'
+      - $ref: '#/components/parameters/InsightsEpisodeId'
+      - $ref: '#/components/parameters/StartQuery'
+      - $ref: '#/components/parameters/EndQuery'
+      responses:
+        '200':
+          description: Episode overview analytics (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /insights/{showId}/averages:
+    get:
+      operationId: getPodcastAverageAnalytics
+      tags:
+      - Analytics
+      summary: Get Average Analytics for Podcast
+      description: Average analytics for a podcast over an interval window.
+      parameters:
+      - $ref: '#/components/parameters/InsightsShowId'
+      - name: intervalDays
+        in: query
+        schema:
+          type: integer
+          default: 28
+      responses:
+        '200':
+          description: Podcast average analytics (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /insights/{showId}/total:
+    get:
+      operationId: getPodcastAllTimeTotal
+      tags:
+      - Analytics
+      summary: Get All-Time Total for Podcast
+      description: All-time total analytics for a podcast.
+      parameters:
+      - $ref: '#/components/parameters/InsightsShowId'
+      responses:
+        '200':
+          description: Podcast all-time total (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /insights/{showId}/total/{episodeId}:
+    get:
+      operationId: getEpisodeAllTimeTotal
+      tags:
+      - Analytics
+      summary: Get All-Time Total for Episode
+      description: All-time total analytics for a specific episode.
+      parameters:
+      - $ref: '#/components/parameters/InsightsShowId'
+      - $ref: '#/components/parameters/InsightsEpisodeId'
+      responses:
+        '200':
+          description: Episode all-time total (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /insights/{showId}/monthly:
+    get:
+      operationId: getPodcastMonthlyAnalytics
+      tags:
+      - Analytics
+      summary: Get Month-by-Month Analytics for Podcast
+      description: Month-by-month analytics series for a podcast.
+      parameters:
+      - $ref: '#/components/parameters/InsightsShowId'
+      responses:
+        '200':
+          description: Podcast monthly analytics (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /insights/{showId}/monthly/{episodeId}:
+    get:
+      operationId: getEpisodeMonthlyAnalytics
+      tags:
+      - Analytics
+      summary: Get Month-by-Month Analytics for Episode
+      description: Month-by-month analytics series for a specific episode.
+      parameters:
+      - $ref: '#/components/parameters/InsightsShowId'
+      - $ref: '#/components/parameters/InsightsEpisodeId'
+      responses:
+        '200':
+          description: Episode monthly analytics (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /insights/{showId}/range:
+    post:
+      operationId: getPodcastRangeAnalytics
+      tags:
+      - Analytics
+      summary: Get Analytics in Range for Podcast
+      description: Analytics for a podcast over an arbitrary date range, broken down by the requested dimension types.
+      parameters:
+      - $ref: '#/components/parameters/InsightsShowId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RangeRequest'
+      responses:
+        '200':
+          description: Podcast range analytics (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /insights/{showId}/range/{episodeId}:
+    post:
+      operationId: getEpisodeRangeAnalytics
+      tags:
+      - Analytics
+      summary: Get Analytics in Range for Episode
+      description: Analytics for a specific episode over an arbitrary date range, broken down by the requested dimension types.
+      parameters:
+      - $ref: '#/components/parameters/InsightsShowId'
+      - $ref: '#/components/parameters/InsightsEpisodeId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RangeRequest'
+      responses:
+        '200':
+          description: Episode range analytics (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /insights/{showId}/compare:
+    post:
+      operationId: compareEpisodeAnalytics
+      tags:
+      - Analytics
+      summary: Get Analytics Comparison between Episodes
+      description: Compare analytics across a set of episodes.
+      parameters:
+      - $ref: '#/components/parameters/InsightsShowId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  published_date:
+                    type: string
+                    format: date-time
+      responses:
+        '200':
+          description: Episode comparison analytics (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /insights/{showId}/web-player/{episodeId}:
+    post:
+      operationId: getWebPlayerAnalytics
+      tags:
+      - Analytics
+      summary: Get Web Player Analytics for Podcast
+      description: Web-player analytics for a podcast, scoped to an episode context.
+      parameters:
+      - $ref: '#/components/parameters/InsightsShowId'
+      - $ref: '#/components/parameters/InsightsEpisodeId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dateRange:
+                  type: object
+                  properties:
+                    gte:
+                      type: string
+                      format: date-time
+                    lte:
+                      type: string
+                      format: date-time
+                duration:
+                  type: string
+                timezone:
+                  type: string
+                  example: America/New_York
+      responses:
+        '200':
+          description: Web-player analytics (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    GenericObject:
+      type: object
+      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
+      additionalProperties: true
+    RangeRequest:
+      type: object
+      description: Request body for range analytics.
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        interval:
+          type: string
+          example: 1d
+        timezone:
+          type: string
+          example: America/New_York
+        countryCode:
+          type:
+          - string
+          - 'null'
+        types:
+          type: array
+          items:
+            type: string
+            enum:
+            - byLocation
+            - byUserAgentBrowser
+            - byUserAgentOs
+            - byUserAgentDevice
+            - byEpisode
+            - byPrivateSubscriber
+  parameters:
+    EndQuery:
+      name: end
+      in: query
+      schema:
+        type: string
+        format: date-time
+        example: '2022-09-01T00:00:00.000Z'
+    StartQuery:
+      name: start
+      in: query
+      schema:
+        type: string
+        format: date-time
+        example: '2022-09-01T00:00:00.000Z'
+    InsightsEpisodeId:
+      name: episodeId
+      in: path
+      required: true
+      description: The episode ID (UUID) for insights.
+      schema:
+        type: string
+    InsightsShowId:
+      name: showId
+      in: path
+      required: true
+      description: The show ID (UUID) for insights.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenericObject'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Bearer token obtained from POST /authenticate/token. Sent as Authorization: Bearer {token}.'

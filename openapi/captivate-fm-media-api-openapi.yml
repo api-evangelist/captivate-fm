@@ -1,0 +1,178 @@
+openapi: 3.1.0
+info:
+  title: Captivate Analytics Media API
+  version: '1.0'
+  description: Public REST API for the Captivate podcast hosting, distribution, and analytics platform. Authenticate a user with their user ID and API token to obtain a Bearer token, then manage shows, episodes, and media and read detailed listening analytics (insights). Endpoints, paths, methods, and request fields in this document are transcribed from Captivate's public Postman documentation at https://docs.captivate.fm. Response schemas are modeled honestly - Captivate's public docs describe the requests and fields but do not publish full JSON response schemas, so response bodies below are generic objects and marked as modeled.
+  contact:
+    name: Captivate API Support
+    email: api@captivate.fm
+    url: https://docs.captivate.fm/
+  x-endpoints-source: Paths and request fields confirmed from the public Captivate API Postman collection (docs.captivate.fm). Response bodies are modeled.
+servers:
+- url: https://api.captivate.fm
+  description: Captivate production API
+security:
+- bearerAuth: []
+tags:
+- name: Media
+  description: Upload, read, list, and search a show's audio media.
+paths:
+  /media/{id}:
+    get:
+      operationId: getMedia
+      tags:
+      - Media
+      summary: Get Media
+      description: Get the information for this media ID.
+      parameters:
+      - $ref: '#/components/parameters/MediaId'
+      responses:
+        '200':
+          description: The media record (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /shows/{id}/media:
+    post:
+      operationId: uploadMedia
+      tags:
+      - Media
+      summary: Upload Media
+      description: Upload a media (audio) file and assign it to the given show ID. Captivate processes the file server-side.
+      parameters:
+      - $ref: '#/components/parameters/ShowId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The audio media file to upload.
+      responses:
+        '200':
+          description: The uploaded media record (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    get:
+      operationId: getShowMedia
+      tags:
+      - Media
+      summary: Get Show Media
+      description: Get all media for the given show ID. Media cannot be shared across shows, so this is scoped to a single show.
+      parameters:
+      - $ref: '#/components/parameters/ShowId'
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - name: order
+        in: query
+        schema:
+          type: string
+          default: created_at
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          default: DESC
+      responses:
+        '200':
+          description: The show's media list (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /shows/{id}/media/search:
+    get:
+      operationId: searchShowMedia
+      tags:
+      - Media
+      summary: Search Show Media
+      description: Search a show's media by media name.
+      parameters:
+      - $ref: '#/components/parameters/ShowId'
+      - name: search
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The media name search query.
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - name: order
+        in: query
+        schema:
+          type: string
+          default: created_at
+      - name: sort
+        in: query
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          default: DESC
+      responses:
+        '200':
+          description: Matching media (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenericObject'
+  schemas:
+    GenericObject:
+      type: object
+      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
+      additionalProperties: true
+  parameters:
+    MediaId:
+      name: id
+      in: path
+      required: true
+      description: The media ID (UUID).
+      schema:
+        type: string
+    ShowId:
+      name: id
+      in: path
+      required: true
+      description: The show ID (UUID).
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Bearer token obtained from POST /authenticate/token. Sent as Authorization: Bearer {token}.'

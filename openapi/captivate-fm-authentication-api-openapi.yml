@@ -1,0 +1,81 @@
+openapi: 3.1.0
+info:
+  title: Captivate Analytics Authentication API
+  version: '1.0'
+  description: Public REST API for the Captivate podcast hosting, distribution, and analytics platform. Authenticate a user with their user ID and API token to obtain a Bearer token, then manage shows, episodes, and media and read detailed listening analytics (insights). Endpoints, paths, methods, and request fields in this document are transcribed from Captivate's public Postman documentation at https://docs.captivate.fm. Response schemas are modeled honestly - Captivate's public docs describe the requests and fields but do not publish full JSON response schemas, so response bodies below are generic objects and marked as modeled.
+  contact:
+    name: Captivate API Support
+    email: api@captivate.fm
+    url: https://docs.captivate.fm/
+  x-endpoints-source: Paths and request fields confirmed from the public Captivate API Postman collection (docs.captivate.fm). Response bodies are modeled.
+servers:
+- url: https://api.captivate.fm
+  description: Captivate production API
+security:
+- bearerAuth: []
+tags:
+- name: Authentication
+  description: Exchange a user ID and API token for a Bearer token.
+paths:
+  /authenticate/token:
+    post:
+      operationId: authenticateUser
+      tags:
+      - Authentication
+      summary: Authenticate User
+      description: All requests must be authenticated using a Bearer token for the user. Obtain the token by sending the user's ID and their API token (both found in the API section of the Captivate account). Returns a Bearer token used in the Authorization header for all other requests.
+      security: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - username
+              - token
+              properties:
+                username:
+                  type: string
+                  description: The Captivate user ID (UUID).
+                  example: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+                token:
+                  type: string
+                  description: The user's API token from their Captivate account.
+      responses:
+        '200':
+          description: Authentication succeeded; a Bearer token is returned (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenericObject'
+  schemas:
+    GenericObject:
+      type: object
+      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
+      additionalProperties: true
+    AuthToken:
+      type: object
+      description: Modeled authentication response. Captivate returns a Bearer token used for all subsequent requests; the exact envelope is not published.
+      properties:
+        success:
+          type: boolean
+        user:
+          type: object
+        token:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Bearer token obtained from POST /authenticate/token. Sent as Authorization: Bearer {token}.'

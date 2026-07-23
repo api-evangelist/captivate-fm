@@ -1,0 +1,99 @@
+openapi: 3.1.0
+info:
+  title: Captivate Analytics Users API
+  version: '1.0'
+  description: Public REST API for the Captivate podcast hosting, distribution, and analytics platform. Authenticate a user with their user ID and API token to obtain a Bearer token, then manage shows, episodes, and media and read detailed listening analytics (insights). Endpoints, paths, methods, and request fields in this document are transcribed from Captivate's public Postman documentation at https://docs.captivate.fm. Response schemas are modeled honestly - Captivate's public docs describe the requests and fields but do not publish full JSON response schemas, so response bodies below are generic objects and marked as modeled.
+  contact:
+    name: Captivate API Support
+    email: api@captivate.fm
+    url: https://docs.captivate.fm/
+  x-endpoints-source: Paths and request fields confirmed from the public Captivate API Postman collection (docs.captivate.fm). Response bodies are modeled.
+servers:
+- url: https://api.captivate.fm
+  description: Captivate production API
+security:
+- bearerAuth: []
+tags:
+- name: Users
+  description: Read a user and list the shows they can access or manage.
+paths:
+  /users/{id}:
+    get:
+      operationId: getUser
+      tags:
+      - Users
+      summary: Get User
+      description: Get a user record by user ID.
+      parameters:
+      - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: The user record (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /users/{id}/shows:
+    get:
+      operationId: getUserShows
+      tags:
+      - Users
+      summary: Get Users Shows
+      description: The shows that this user can access regardless of their role.
+      parameters:
+      - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: A list of shows the user can access (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /users/{id}/shows/manager:
+    get:
+      operationId: getUserManagedShows
+      tags:
+      - Users
+      summary: Get Users Managed Shows
+      description: The shows that the user is manager or owner of; they can create and invite new users to these shows.
+      parameters:
+      - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: A list of shows the user manages or owns (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenericObject'
+  schemas:
+    GenericObject:
+      type: object
+      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
+      additionalProperties: true
+  parameters:
+    UserId:
+      name: id
+      in: path
+      required: true
+      description: The Captivate user ID (UUID).
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Bearer token obtained from POST /authenticate/token. Sent as Authorization: Bearer {token}.'

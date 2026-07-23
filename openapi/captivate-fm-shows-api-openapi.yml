@@ -1,0 +1,178 @@
+openapi: 3.1.0
+info:
+  title: Captivate Analytics Shows API
+  version: '1.0'
+  description: Public REST API for the Captivate podcast hosting, distribution, and analytics platform. Authenticate a user with their user ID and API token to obtain a Bearer token, then manage shows, episodes, and media and read detailed listening analytics (insights). Endpoints, paths, methods, and request fields in this document are transcribed from Captivate's public Postman documentation at https://docs.captivate.fm. Response schemas are modeled honestly - Captivate's public docs describe the requests and fields but do not publish full JSON response schemas, so response bodies below are generic objects and marked as modeled.
+  contact:
+    name: Captivate API Support
+    email: api@captivate.fm
+    url: https://docs.captivate.fm/
+  x-endpoints-source: Paths and request fields confirmed from the public Captivate API Postman collection (docs.captivate.fm). Response bodies are modeled.
+servers:
+- url: https://api.captivate.fm
+  description: Captivate production API
+security:
+- bearerAuth: []
+tags:
+- name: Shows
+  description: Read and update shows, upload artwork, get the RSS feed URL.
+paths:
+  /shows/{id}/:
+    get:
+      operationId: getShow
+      tags:
+      - Shows
+      summary: Get Show
+      description: Get the show information by the show ID.
+      parameters:
+      - $ref: '#/components/parameters/ShowId'
+      responses:
+        '200':
+          description: The show record (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /shows/{id}:
+    put:
+      operationId: updateShow
+      tags:
+      - Shows
+      summary: Update Show
+      description: Update the show's metadata.
+      parameters:
+      - $ref: '#/components/parameters/ShowId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: My Demo Show
+                description:
+                  type: string
+                summary:
+                  type: string
+                subtitle:
+                  type: string
+                author:
+                  type: string
+                name:
+                  type: string
+                categories[0]:
+                  type: string
+                  description: Apple Podcasts category code, e.g. 01.00.
+                itunes_email:
+                  type: string
+                copyright:
+                  type: string
+                explicit:
+                  type: string
+                  description: e.g. clean, explicit.
+                order:
+                  type: string
+                  example: DESC
+                limit:
+                  type: string
+                type:
+                  type: string
+                  description: e.g. episodic or serial.
+                language:
+                  type: string
+                  example: en
+                donation_link:
+                  type: string
+                link:
+                  type: string
+                third_party_analytics:
+                  type: string
+                  description: Third-party analytics prefix, e.g. a Chartable tracking URL.
+      responses:
+        '200':
+          description: The updated show (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /shows/{id}/artwork:
+    post:
+      operationId: createShowArtwork
+      tags:
+      - Shows
+      summary: Create Show Artwork
+      description: Upload the show's artwork. The file must be a JPG or PNG in the RGB colorspace (not CMYK), completely square, with a minimum of 1400px height.
+      parameters:
+      - $ref: '#/components/parameters/ShowId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Square JPG or PNG artwork, RGB, minimum 1400px.
+      responses:
+        '200':
+          description: Artwork accepted (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /shows/{id}/feed:
+    get:
+      operationId: getShowFeedUrl
+      tags:
+      - Shows
+      summary: Get Show Feed URL
+      description: Get the public RSS feed URL for this show.
+      parameters:
+      - $ref: '#/components/parameters/ShowId'
+      responses:
+        '200':
+          description: The RSS feed URL (modeled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenericObject'
+  schemas:
+    GenericObject:
+      type: object
+      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
+      additionalProperties: true
+  parameters:
+    ShowId:
+      name: id
+      in: path
+      required: true
+      description: The show ID (UUID).
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Bearer token obtained from POST /authenticate/token. Sent as Authorization: Bearer {token}.'
