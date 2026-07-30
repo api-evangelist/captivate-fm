@@ -11,7 +11,20 @@ description: Captivate is a growth-oriented podcast hosting, distribution, and
   token from the API section of their Captivate account and exchange them for a
   Bearer token. The API is documented as a public Postman collection at
   docs.captivate.fm.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: true
+  try_now: true
+  public: false
+  label: Paid (free trial) · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/captivate-fm.png
 tags:
 - Podcasting
 - Podcast Hosting
@@ -23,113 +36,114 @@ created: '2026-07-05'
 modified: '2026-07-05'
 specificationVersion: '0.19'
 apis:
-- aid: captivate-fm:captivate-fm-users-api
-  name: Captivate Users API
-  tags:
-  - Users
-  - Authentication
-  - Shows
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.captivate.fm/
-  baseURL: https://api.captivate.fm
-  properties:
-  - url: https://docs.captivate.fm/
-    type: Documentation
-  - url: https://docs.captivate.fm/
-    type: APIReference
-  - url: openapi/captivate-fm-openapi.yml
-    type: OpenAPI
-  - url: collections/captivate-fm.postman_collection.json
-    type: PostmanCollection
-  - url: collections/captivate-fm.opencollection.json
-    type: OpenCollection
-  description: Authenticate a user with their user ID and API token to obtain a Bearer
-    token, retrieve a user record, and list the shows a user can access or the shows
-    a user manages or owns.
-- aid: captivate-fm:captivate-fm-shows-api
-  name: Captivate Shows API
-  tags:
-  - Shows
-  - Podcasts
-  - RSS
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.captivate.fm/
-  baseURL: https://api.captivate.fm
-  properties:
-  - url: https://docs.captivate.fm/
-    type: Documentation
-  - url: openapi/captivate-fm-openapi.yml
-    type: OpenAPI
-  - url: collections/captivate-fm.postman_collection.json
-    type: PostmanCollection
-  - url: collections/captivate-fm.opencollection.json
-    type: OpenCollection
-  description: Read and update a show's metadata (title, description, categories, author,
-    language, links), upload show artwork, and retrieve the show's public RSS feed URL.
-- aid: captivate-fm:captivate-fm-episodes-api
-  name: Captivate Episodes API
-  tags:
-  - Episodes
-  - Publishing
-  - Scheduling
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.captivate.fm/
-  baseURL: https://api.captivate.fm
-  properties:
-  - url: https://docs.captivate.fm/
-    type: Documentation
-  - url: openapi/captivate-fm-openapi.yml
-    type: OpenAPI
-  - url: collections/captivate-fm.postman_collection.json
-    type: PostmanCollection
-  - url: collections/captivate-fm.opencollection.json
-    type: OpenCollection
-  description: List a show's published and scheduled episodes, read a single episode,
-    and create or update episodes - linking uploaded media, show notes, season and
-    episode numbers, publish date and status, and Apple Podcasts metadata.
-- aid: captivate-fm:captivate-fm-media-api
-  name: Captivate Media API
-  tags:
-  - Media
-  - Audio
-  - Uploads
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.captivate.fm/
-  baseURL: https://api.captivate.fm
-  properties:
-  - url: https://docs.captivate.fm/
-    type: Documentation
-  - url: openapi/captivate-fm-openapi.yml
-    type: OpenAPI
-  - url: collections/captivate-fm.postman_collection.json
-    type: PostmanCollection
-  - url: collections/captivate-fm.opencollection.json
-    type: OpenCollection
-  description: Upload an audio media file to a show, retrieve a media record by ID,
-    and list or search a show's media library with offset, order, and sort controls.
-    Media is scoped to a single show and cannot be shared across shows.
 - aid: captivate-fm:captivate-fm-analytics-api
   name: Captivate Analytics API
-  tags:
-  - Analytics
-  - Insights
-  - Downloads
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  description: Podcast and episode listening analytics (insights).
   humanURL: https://docs.captivate.fm/
   baseURL: https://api.captivate.fm
+  tags:
+  - Analytics
   properties:
-  - url: https://docs.captivate.fm/
-    type: Documentation
-  - url: openapi/captivate-fm-openapi.yml
-    type: OpenAPI
-  - url: collections/captivate-fm.postman_collection.json
-    type: PostmanCollection
-  - url: collections/captivate-fm.opencollection.json
-    type: OpenCollection
-  description: Pull listening analytics (insights) for a podcast or a specific episode -
-    overview, averages, all-time totals, month-by-month series, arbitrary date ranges
-    broken down by location, browser, OS, device and episode, episode comparisons,
-    and web-player analytics.
+  - type: OpenAPI
+    url: openapi/captivate-fm-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.captivate.fm/
+  - type: APIReference
+    url: https://docs.captivate.fm/
+  - type: PostmanCollection
+    url: collections/captivate-fm.postman_collection.json
+  - type: OpenCollection
+    url: collections/captivate-fm.opencollection.json
+- aid: captivate-fm:captivate-fm-authentication-api
+  name: Captivate Authentication API
+  description: Exchange a user ID and API token for a Bearer token.
+  humanURL: https://docs.captivate.fm/
+  baseURL: https://api.captivate.fm
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/captivate-fm-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://docs.captivate.fm/
+  - type: APIReference
+    url: https://docs.captivate.fm/
+  - type: PostmanCollection
+    url: collections/captivate-fm.postman_collection.json
+  - type: OpenCollection
+    url: collections/captivate-fm.opencollection.json
+- aid: captivate-fm:captivate-fm-episodes-api
+  name: Captivate Episodes API
+  description: List, read, create, and update episodes.
+  humanURL: https://docs.captivate.fm/
+  baseURL: https://api.captivate.fm
+  tags:
+  - Episodes
+  properties:
+  - type: OpenAPI
+    url: openapi/captivate-fm-episodes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.captivate.fm/
+  - type: APIReference
+    url: https://docs.captivate.fm/
+  - type: PostmanCollection
+    url: collections/captivate-fm.postman_collection.json
+  - type: OpenCollection
+    url: collections/captivate-fm.opencollection.json
+- aid: captivate-fm:captivate-fm-media-api
+  name: Captivate Media API
+  description: Upload, read, list, and search a show's audio media.
+  humanURL: https://docs.captivate.fm/
+  baseURL: https://api.captivate.fm
+  tags:
+  - Media
+  properties:
+  - type: OpenAPI
+    url: openapi/captivate-fm-media-api-openapi.yml
+  - type: Documentation
+    url: https://docs.captivate.fm/
+  - type: APIReference
+    url: https://docs.captivate.fm/
+  - type: PostmanCollection
+    url: collections/captivate-fm.postman_collection.json
+  - type: OpenCollection
+    url: collections/captivate-fm.opencollection.json
+- aid: captivate-fm:captivate-fm-shows-api
+  name: Captivate Shows API
+  description: Read and update shows, upload artwork, get the RSS feed URL.
+  humanURL: https://docs.captivate.fm/
+  baseURL: https://api.captivate.fm
+  tags:
+  - Shows
+  properties:
+  - type: OpenAPI
+    url: openapi/captivate-fm-shows-api-openapi.yml
+  - type: Documentation
+    url: https://docs.captivate.fm/
+  - type: APIReference
+    url: https://docs.captivate.fm/
+  - type: PostmanCollection
+    url: collections/captivate-fm.postman_collection.json
+  - type: OpenCollection
+    url: collections/captivate-fm.opencollection.json
+- aid: captivate-fm:captivate-fm-users-api
+  name: Captivate Users API
+  description: Read a user and list the shows they can access or manage.
+  humanURL: https://docs.captivate.fm/
+  baseURL: https://api.captivate.fm
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/captivate-fm-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.captivate.fm/
+  - type: APIReference
+    url: https://docs.captivate.fm/
+  - type: PostmanCollection
+    url: collections/captivate-fm.postman_collection.json
+  - type: OpenCollection
+    url: collections/captivate-fm.opencollection.json
 common:
 - type: AgenticAccess
   url: agentic-access/captivate-fm-agentic-access.yml
