@@ -1,0 +1,24 @@
+{
+  "provider": "captivate-fm",
+  "sources": [
+    "captivate-fm-analytics-api-openapi.yml",
+    "captivate-fm-authentication-api-openapi.yml",
+    "captivate-fm-episodes-api-openapi.yml",
+    "captivate-fm-media-api-openapi.yml",
+    "captivate-fm-shows-api-openapi.yml",
+    "captivate-fm-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "captivate-fm-analytics-api-openapi.yml",
+    "captivate-fm-authentication-api-openapi.yml",
+    "captivate-fm-episodes-api-openapi.yml",
+    "captivate-fm-media-api-openapi.yml",
+    "captivate-fm-shows-api-openapi.yml",
+    "captivate-fm-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
