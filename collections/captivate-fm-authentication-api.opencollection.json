@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Captivate Analytics Authentication API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Authenticate User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.captivate.fm/authenticate/token",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "username",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "token",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "All requests must be authenticated using a Bearer token for the user. Obtain the token by sending the user's ID and their API token (both found in the API section of the Captivate account). Returns a Bearer token used in the Authorization header for all other requests."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

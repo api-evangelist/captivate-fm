@@ -1,0 +1,309 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Captivate Analytics API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Overview Analytics for Podcast",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/insights/:showId/overview",
+            "params": [
+              {
+                "name": "showId",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID) for insights."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "includeTopEpisodes",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Overview analytics for a podcast over a date range."
+        },
+        {
+          "info": {
+            "name": "Get Overview Analytics for a specific Episode",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/insights/:showId/overview/:episodeId",
+            "params": [
+              {
+                "name": "showId",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID) for insights."
+              },
+              {
+                "name": "episodeId",
+                "value": "",
+                "type": "path",
+                "description": "The episode ID (UUID) for insights."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Overview analytics for a specific episode over a date range."
+        },
+        {
+          "info": {
+            "name": "Get Average Analytics for Podcast",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/insights/:showId/averages",
+            "params": [
+              {
+                "name": "showId",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID) for insights."
+              },
+              {
+                "name": "intervalDays",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Average analytics for a podcast over an interval window."
+        },
+        {
+          "info": {
+            "name": "Get All-Time Total for Podcast",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/insights/:showId/total",
+            "params": [
+              {
+                "name": "showId",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID) for insights."
+              }
+            ]
+          },
+          "docs": "All-time total analytics for a podcast."
+        },
+        {
+          "info": {
+            "name": "Get All-Time Total for Episode",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/insights/:showId/total/:episodeId",
+            "params": [
+              {
+                "name": "showId",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID) for insights."
+              },
+              {
+                "name": "episodeId",
+                "value": "",
+                "type": "path",
+                "description": "The episode ID (UUID) for insights."
+              }
+            ]
+          },
+          "docs": "All-time total analytics for a specific episode."
+        },
+        {
+          "info": {
+            "name": "Get Month-by-Month Analytics for Podcast",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/insights/:showId/monthly",
+            "params": [
+              {
+                "name": "showId",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID) for insights."
+              }
+            ]
+          },
+          "docs": "Month-by-month analytics series for a podcast."
+        },
+        {
+          "info": {
+            "name": "Get Month-by-Month Analytics for Episode",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/insights/:showId/monthly/:episodeId",
+            "params": [
+              {
+                "name": "showId",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID) for insights."
+              },
+              {
+                "name": "episodeId",
+                "value": "",
+                "type": "path",
+                "description": "The episode ID (UUID) for insights."
+              }
+            ]
+          },
+          "docs": "Month-by-month analytics series for a specific episode."
+        },
+        {
+          "info": {
+            "name": "Get Analytics in Range for Podcast",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.captivate.fm/insights/:showId/range",
+            "params": [
+              {
+                "name": "showId",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID) for insights."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Analytics for a podcast over an arbitrary date range, broken down by the requested dimension types."
+        },
+        {
+          "info": {
+            "name": "Get Analytics in Range for Episode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.captivate.fm/insights/:showId/range/:episodeId",
+            "params": [
+              {
+                "name": "showId",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID) for insights."
+              },
+              {
+                "name": "episodeId",
+                "value": "",
+                "type": "path",
+                "description": "The episode ID (UUID) for insights."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Analytics for a specific episode over an arbitrary date range, broken down by the requested dimension types."
+        },
+        {
+          "info": {
+            "name": "Get Analytics Comparison between Episodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.captivate.fm/insights/:showId/compare",
+            "params": [
+              {
+                "name": "showId",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID) for insights."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Compare analytics across a set of episodes."
+        },
+        {
+          "info": {
+            "name": "Get Web Player Analytics for Podcast",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.captivate.fm/insights/:showId/web-player/:episodeId",
+            "params": [
+              {
+                "name": "showId",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID) for insights."
+              },
+              {
+                "name": "episodeId",
+                "value": "",
+                "type": "path",
+                "description": "The episode ID (UUID) for insights."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Web-player analytics for a podcast, scoped to an episode context."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,119 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Captivate Analytics Episodes API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Episodes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Show Episodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/shows/:id/episodes",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID)."
+              }
+            ]
+          },
+          "docs": "A full breakdown of all the episodes for this show plus a count of the total number of episodes."
+        },
+        {
+          "info": {
+            "name": "Get Show Scheduled Episodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/shows/:id/episodes/scheduled",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID)."
+              }
+            ]
+          },
+          "docs": "All scheduled (future) episodes for this show plus a count."
+        },
+        {
+          "info": {
+            "name": "Get Episode",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/episodes/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The episode ID (UUID)."
+              }
+            ]
+          },
+          "docs": "Get the full information for an episode by episode ID."
+        },
+        {
+          "info": {
+            "name": "Update Episode",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.captivate.fm/episodes/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The episode ID (UUID)."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Update an existing episode."
+        },
+        {
+          "info": {
+            "name": "Create Episode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.captivate.fm/episodes",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Create an episode with the following parameters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,230 @@
+{
+  "item": [
+    {
+      "id": "8a04ebe6-5c0f-4ed2-912f-521aa9c8fdd1",
+      "name": "Authentication",
+      "description": {
+        "content": "Exchange a user ID and API token for a Bearer token.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2fc7a7fb-0cfb-4974-b1be-b802b22f1138",
+          "name": "Authenticate User",
+          "request": {
+            "name": "Authenticate User",
+            "description": {
+              "content": "All requests must be authenticated using a Bearer token for the user. Obtain the token by sending the user's ID and their API token (both found in the API section of the Captivate account). Returns a Bearer token used in the Authorization header for all other requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "authenticate",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "username",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) The Captivate user ID (UUID)."
+                },
+                {
+                  "key": "token",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) The user's API token from their Captivate account."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c05d5561-d336-40e8-af6e-ee26977ace9f",
+              "name": "Authentication succeeded; a Bearer token is returned (modeled).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authenticate",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The Captivate user ID (UUID).",
+                        "type": "text/plain"
+                      },
+                      "key": "username",
+                      "value": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) The user's API token from their Captivate account.",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"user\": {},\n  \"token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e82dd4c-30cb-4b44-9ed8-aa9a9b5e0ec0",
+              "name": "Missing or invalid Bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authenticate",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The Captivate user ID (UUID).",
+                        "type": "text/plain"
+                      },
+                      "key": "username",
+                      "value": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) The user's API token from their Captivate account.",
+                        "type": "text/plain"
+                      },
+                      "key": "token",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 8802\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.captivate.fm",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "19189652-6947-4edf-b938-67bb10286a9a",
+    "name": "Captivate Analytics Authentication API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public REST API for the Captivate podcast hosting, distribution, and analytics platform. Authenticate a user with their user ID and API token to obtain a Bearer token, then manage shows, episodes, and media and read detailed listening analytics (insights). Endpoints, paths, methods, and request fields in this document are transcribed from Captivate's public Postman documentation at https://docs.captivate.fm. Response schemas are modeled honestly - Captivate's public docs describe the requests and fields but do not publish full JSON response schemas, so response bodies below are generic objects and marked as modeled.\n\nContact Support:\n Name: Captivate API Support\n Email: api@captivate.fm",
+      "type": "text/plain"
+    }
+  }
+}

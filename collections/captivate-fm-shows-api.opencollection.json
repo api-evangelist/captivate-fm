@@ -1,0 +1,200 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Captivate Analytics Shows API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Show",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/shows/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID)."
+              }
+            ]
+          },
+          "docs": "Get the show information by the show ID."
+        },
+        {
+          "info": {
+            "name": "Update Show",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.captivate.fm/shows/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID)."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "title",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "description",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "summary",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "subtitle",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "author",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "categories[0]",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "itunes_email",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "copyright",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "explicit",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "order",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "limit",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "type",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "language",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "donation_link",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "link",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "third_party_analytics",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Update the show's metadata."
+        },
+        {
+          "info": {
+            "name": "Create Show Artwork",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.captivate.fm/shows/:id/artwork",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID)."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload the show's artwork. The file must be a JPG or PNG in the RGB colorspace (not CMYK), completely square, with a minimum of 1400px height."
+        },
+        {
+          "info": {
+            "name": "Get Show Feed URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/shows/:id/feed",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The show ID (UUID)."
+              }
+            ]
+          },
+          "docs": "Get the public RSS feed URL for this show."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

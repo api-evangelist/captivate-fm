@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Captivate Analytics Users API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Captivate user ID (UUID)."
+              }
+            ]
+          },
+          "docs": "Get a user record by user ID."
+        },
+        {
+          "info": {
+            "name": "Get Users Shows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/users/:id/shows",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Captivate user ID (UUID)."
+              }
+            ]
+          },
+          "docs": "The shows that this user can access regardless of their role."
+        },
+        {
+          "info": {
+            "name": "Get Users Managed Shows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.captivate.fm/users/:id/shows/manager",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Captivate user ID (UUID)."
+              }
+            ]
+          },
+          "docs": "The shows that the user is manager or owner of; they can create and invite new users to these shows."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
