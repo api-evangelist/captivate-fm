@@ -132,6 +132,8 @@ apis:
   humanURL: https://docs.captivate.fm/
   baseURL: https://api.captivate.fm
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
