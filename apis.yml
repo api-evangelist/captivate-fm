@@ -11,6 +11,18 @@ description: Captivate is a growth-oriented podcast hosting, distribution, and
   token from the API section of their Captivate account and exchange them for a
   Bearer token. The API is documented as a public Postman collection at
   docs.captivate.fm.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
