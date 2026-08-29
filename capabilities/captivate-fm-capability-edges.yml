@@ -1,0 +1,36 @@
+slug: captivate-fm
+provider: Captivate
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Media, Entertainment & Telecom Content
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Analytics
+  spec_file: captivate-fm-analytics-api-openapi.yml
+  capability_id: BC-3770.30
+  capability_id_l1: BC-3770
+  capability_name: Content Performance Analytics
+  confidence: 0.75
+  evidence: GET /insights/{showId}/overview/{episodeId} "Get Overview Analytics for a specific Episode";
+    POST /insights/{showId}/compare "Get Analytics Comparison between Episodes"
+  reason: Endpoints report listening performance by show and episode over time and compare titles — content
+    performance analytics within audience measurement and insights for podcast content.
+- tag: Media
+  spec_file: captivate-fm-media-api-openapi.yml
+  capability_id: BC-3710.10
+  capability_id_l1: BC-3710
+  capability_name: Asset Ingest & Quality Control
+  confidence: 0.72
+  evidence: POST /shows/{id}/media  uploadMedia  Upload Media; GET /shows/{id}/media/search  searchShowMedia  Search
+    Show Media — "upload and search media (audio) files"
+  reason: Operations onboard audio source files into the podcast platform's asset store and let them be
+    listed and searched, which is media asset ingest and cataloguing. The narrower ingest sub-capability
+    fits the upload operations; no rights, scheduling or ad semantics appear.

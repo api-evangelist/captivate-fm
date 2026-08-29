@@ -159,6 +159,9 @@ apis:
   - type: OpenCollection
     url: collections/captivate-fm.opencollection.json
 common:
+- type: CapabilityMap
+  url: capabilities/captivate-fm-capability-edges.yml
+  name: Captivate Business Capability Map
 - type: AgenticAccess
   url: agentic-access/captivate-fm-agentic-access.yml
 - type: DomainSecurity
