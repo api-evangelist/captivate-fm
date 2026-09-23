@@ -1,0 +1,30 @@
+# Front Door AI Index — captivate-fm — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: captivate-fm
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.captivate.fm
+  final_host: www.captivate.fm
+  ownership: own
+  owner: captivate-fm
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 3
+  host_score: 3
+  density: 0.64
+  words: 4684
+  tiers:
+    agentic: 1
+    core: 2
+    model: 0
+  ambiguous: 7
+  top_terms:
+    agent: 5
+    AI assistant: 1
+    AI: 1
+    artificial intelligence: 1
+    automation: 1
+    intelligence: 1

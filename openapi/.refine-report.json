@@ -1,12 +1,7 @@
 {
   "provider": "captivate-fm",
   "sources": [
-    "captivate-fm-analytics-api-openapi.yml",
-    "captivate-fm-authentication-api-openapi.yml",
-    "captivate-fm-episodes-api-openapi.yml",
-    "captivate-fm-media-api-openapi.yml",
-    "captivate-fm-shows-api-openapi.yml",
-    "captivate-fm-users-api-openapi.yml"
+    "_original/captivate-fm-openapi.yml"
   ],
   "outputs": [
     "captivate-fm-analytics-api-openapi.yml",
@@ -19,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "captivate-fm-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "captivate-fm-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "captivate-fm-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "captivate-fm-episodes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "captivate-fm-media-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "captivate-fm-shows-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "captivate-fm-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

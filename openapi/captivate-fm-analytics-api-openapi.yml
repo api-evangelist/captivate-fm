@@ -1,8 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Captivate Analytics API
   version: '1.0'
-  description: Public REST API for the Captivate podcast hosting, distribution, and analytics platform. Authenticate a user with their user ID and API token to obtain a Bearer token, then manage shows, episodes, and media and read detailed listening analytics (insights). Endpoints, paths, methods, and request fields in this document are transcribed from Captivate's public Postman documentation at https://docs.captivate.fm. Response schemas are modeled honestly - Captivate's public docs describe the requests and fields but do not publish full JSON response schemas, so response bodies below are generic objects and marked as modeled.
+  description: Public REST API for the Captivate podcast hosting, distribution, and analytics platform.
   contact:
     name: Captivate API Support
     email: api@captivate.fm
@@ -285,10 +285,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    GenericObject:
-      type: object
-      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
-      additionalProperties: true
     RangeRequest:
       type: object
       description: Request body for range analytics.
@@ -320,16 +316,27 @@ components:
             - byUserAgentDevice
             - byEpisode
             - byPrivateSubscriber
+    GenericObject:
+      type: object
+      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
+      additionalProperties: true
   parameters:
-    EndQuery:
-      name: end
+    StartQuery:
+      name: start
       in: query
       schema:
         type: string
         format: date-time
         example: '2022-09-01T00:00:00.000Z'
-    StartQuery:
-      name: start
+    InsightsShowId:
+      name: showId
+      in: path
+      required: true
+      description: The show ID (UUID) for insights.
+      schema:
+        type: string
+    EndQuery:
+      name: end
       in: query
       schema:
         type: string
@@ -340,13 +347,6 @@ components:
       in: path
       required: true
       description: The episode ID (UUID) for insights.
-      schema:
-        type: string
-    InsightsShowId:
-      name: showId
-      in: path
-      required: true
-      description: The show ID (UUID) for insights.
       schema:
         type: string
   responses:
