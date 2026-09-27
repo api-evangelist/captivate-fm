@@ -53,10 +53,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    GenericObject:
-      type: object
-      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
-      additionalProperties: true
     AuthToken:
       type: object
       description: Modeled authentication response. Captivate returns a Bearer token used for all subsequent requests; the exact envelope is not published.
@@ -67,6 +63,10 @@ components:
           type: object
         token:
           type: string
+    GenericObject:
+      type: object
+      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
+      additionalProperties: true
   responses:
     Unauthorized:
       description: Missing or invalid Bearer token.

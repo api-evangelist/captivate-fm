@@ -117,28 +117,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GenericObject'
-  parameters:
-    ShowId:
-      name: id
-      in: path
-      required: true
-      description: The show ID (UUID).
-      schema:
-        type: string
-    EpisodeId:
-      name: id
-      in: path
-      required: true
-      description: The episode ID (UUID).
-      schema:
-        type: string
   schemas:
     GenericObject:
       type: object
@@ -198,6 +176,28 @@ components:
         itunes_block:
           type: string
           description: 'true or false: whether to block the episode from Apple Podcasts.'
+  parameters:
+    EpisodeId:
+      name: id
+      in: path
+      required: true
+      description: The episode ID (UUID).
+      schema:
+        type: string
+    ShowId:
+      name: id
+      in: path
+      required: true
+      description: The show ID (UUID).
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenericObject'
   securitySchemes:
     bearerAuth:
       type: http

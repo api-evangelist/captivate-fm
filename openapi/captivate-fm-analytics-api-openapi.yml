@@ -285,6 +285,10 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    GenericObject:
+      type: object
+      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
+      additionalProperties: true
     RangeRequest:
       type: object
       description: Request body for range analytics.
@@ -316,10 +320,6 @@ components:
             - byUserAgentDevice
             - byEpisode
             - byPrivateSubscriber
-    GenericObject:
-      type: object
-      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
-      additionalProperties: true
   parameters:
     StartQuery:
       name: start
@@ -335,13 +335,6 @@ components:
       description: The show ID (UUID) for insights.
       schema:
         type: string
-    EndQuery:
-      name: end
-      in: query
-      schema:
-        type: string
-        format: date-time
-        example: '2022-09-01T00:00:00.000Z'
     InsightsEpisodeId:
       name: episodeId
       in: path
@@ -349,6 +342,13 @@ components:
       description: The episode ID (UUID) for insights.
       schema:
         type: string
+    EndQuery:
+      name: end
+      in: query
+      schema:
+        type: string
+        format: date-time
+        example: '2022-09-01T00:00:00.000Z'
   responses:
     Unauthorized:
       description: Missing or invalid Bearer token.
