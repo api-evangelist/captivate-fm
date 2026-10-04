@@ -132,7 +132,18 @@ components:
       description: The episode ID (UUID).
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenericObject'
   schemas:
+    GenericObject:
+      type: object
+      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
+      additionalProperties: true
     EpisodeInput:
       type: object
       description: Fields for creating or updating an episode (multipart form-data).
@@ -187,17 +198,6 @@ components:
         itunes_block:
           type: string
           description: 'true or false: whether to block the episode from Apple Podcasts.'
-    GenericObject:
-      type: object
-      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
-      additionalProperties: true
-  responses:
-    Unauthorized:
-      description: Missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GenericObject'
   securitySchemes:
     bearerAuth:
       type: http

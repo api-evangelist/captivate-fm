@@ -52,11 +52,14 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenericObject'
   schemas:
-    GenericObject:
-      type: object
-      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
-      additionalProperties: true
     AuthToken:
       type: object
       description: Modeled authentication response. Captivate returns a Bearer token used for all subsequent requests; the exact envelope is not published.
@@ -67,13 +70,10 @@ components:
           type: object
         token:
           type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GenericObject'
+    GenericObject:
+      type: object
+      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
+      additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http

@@ -284,7 +284,47 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    InsightsEpisodeId:
+      name: episodeId
+      in: path
+      required: true
+      description: The episode ID (UUID) for insights.
+      schema:
+        type: string
+    EndQuery:
+      name: end
+      in: query
+      schema:
+        type: string
+        format: date-time
+        example: '2022-09-01T00:00:00.000Z'
+    StartQuery:
+      name: start
+      in: query
+      schema:
+        type: string
+        format: date-time
+        example: '2022-09-01T00:00:00.000Z'
+    InsightsShowId:
+      name: showId
+      in: path
+      required: true
+      description: The show ID (UUID) for insights.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenericObject'
   schemas:
+    GenericObject:
+      type: object
+      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
+      additionalProperties: true
     RangeRequest:
       type: object
       description: Request body for range analytics.
@@ -316,46 +356,6 @@ components:
             - byUserAgentDevice
             - byEpisode
             - byPrivateSubscriber
-    GenericObject:
-      type: object
-      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
-      additionalProperties: true
-  parameters:
-    EndQuery:
-      name: end
-      in: query
-      schema:
-        type: string
-        format: date-time
-        example: '2022-09-01T00:00:00.000Z'
-    StartQuery:
-      name: start
-      in: query
-      schema:
-        type: string
-        format: date-time
-        example: '2022-09-01T00:00:00.000Z'
-    InsightsShowId:
-      name: showId
-      in: path
-      required: true
-      description: The show ID (UUID) for insights.
-      schema:
-        type: string
-    InsightsEpisodeId:
-      name: episodeId
-      in: path
-      required: true
-      description: The episode ID (UUID) for insights.
-      schema:
-        type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GenericObject'
   securitySchemes:
     bearerAuth:
       type: http
