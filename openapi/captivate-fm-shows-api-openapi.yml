@@ -151,6 +151,13 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid Bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GenericObject'
   parameters:
     ShowId:
       name: id
@@ -159,13 +166,6 @@ components:
       description: The show ID (UUID).
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid Bearer token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GenericObject'
   schemas:
     GenericObject:
       type: object

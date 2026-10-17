@@ -299,13 +299,6 @@ components:
         type: string
         format: date-time
         example: '2022-09-01T00:00:00.000Z'
-    StartQuery:
-      name: start
-      in: query
-      schema:
-        type: string
-        format: date-time
-        example: '2022-09-01T00:00:00.000Z'
     InsightsShowId:
       name: showId
       in: path
@@ -313,6 +306,13 @@ components:
       description: The show ID (UUID) for insights.
       schema:
         type: string
+    StartQuery:
+      name: start
+      in: query
+      schema:
+        type: string
+        format: date-time
+        example: '2022-09-01T00:00:00.000Z'
   responses:
     Unauthorized:
       description: Missing or invalid Bearer token.
@@ -321,10 +321,6 @@ components:
           schema:
             $ref: '#/components/schemas/GenericObject'
   schemas:
-    GenericObject:
-      type: object
-      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
-      additionalProperties: true
     RangeRequest:
       type: object
       description: Request body for range analytics.
@@ -356,6 +352,10 @@ components:
             - byUserAgentDevice
             - byEpisode
             - byPrivateSubscriber
+    GenericObject:
+      type: object
+      description: Modeled response object. Captivate's public documentation describes requests and fields but does not publish full JSON response schemas, so response bodies are represented generically.
+      additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http
