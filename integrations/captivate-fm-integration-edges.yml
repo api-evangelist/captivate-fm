@@ -25,8 +25,119 @@ edges:
     builder: unknown (not in the directory record)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: Podcast Index (apps directory)
+  partner: podcastindex
+  partner_match: register
+  type: register
+  direction: partner-built
+  channel: standard-directory
+  relationship: standard-participant
+  evidence: https://podcastindex.org/apps
+  category: open podcast namespace (Podcasting 2.0)
+  contract_reference:
+    register: Podcast Index apps directory (podcastindex.org/api/apps)
+    standard: 'podcast: RSS namespace (Podcasting 2.0)'
+    spec_file: null
+    role: podcastindex-listed-app
+    registered_name: Captivate
+    register_id: https://www.captivate.fm/
+    app_types:
+    - hosting
+    supported_elements:
+    - Episode
+    - Funding
+    - GUID
+    - License
+    - Location
+    - Locked
+    - Medium
+    - OP3
+    - Podping
+    - Season
+    - Transcript
+    - Txt
+    - Value
+    matched_domain: captivate.fm
+    matched_by: domain
+    signal_note: 'participation only: the directory is self-listed and tests nothing (no certified_products); supported_elements
+      is a per-edge signal, never counted'
+    detected_by: sweep-podcasting-2-0.py
+    detected: '2026-10-21'
+  detected_by: sweep-podcasting-2-0.py
+  first_seen: '2026-10-21'
+- partner_name: IAB Tech Lab Podcast Measurement compliance
+  partner: iab-tech-lab
+  partner_match: register
+  type: register
+  direction: partner-built
+  channel: standard-directory
+  relationship: standard-participant
+  evidence: https://iabtechlab.com/compliance-programs/compliant-companies/
+  category: podcast measurement certification
+  contract_reference:
+    register: 'IAB Tech Lab compliant companies: Podcast Measurement (iabtechlab.com/compliance-programs/compliant-companies/)'
+    standard: IAB Tech Lab Podcast Measurement Technical Guidelines
+    spec_file: null
+    role: iab-podcast-measurement-compliant
+    registered_name: Captivate
+    register_id: https://compliance.iabtechnologylab.com/compliant-companies-certs/1721666266508-07.17.2024_Captivate_-_IAB_Podcast_Measurement_Report.pdf
+    matched_domain: captivate.fm
+    matched_by: domain
+    certified_products:
+    - product_type: podcast measurement
+      standard_version: '2.2'
+      metrics:
+      - Download
+      - Listener
+      last_certified: '2024-07-19'
+      lapsed: true
+    signal_note: certified_products = ONE entry (product type podcast measurement); metrics and version are context;
+      lapsed when last certified is more than 365 days ago (annual renewal)
+    detected_by: sweep-podcasting-2-0.py
+    detected: '2026-10-21'
+  detected_by: sweep-podcasting-2-0.py
+  first_seen: '2026-10-21'
+- partner_name: Apple (own)
+  partner: apple
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.captivate.fm
+  mirror_of: apple/integrations/apple-integration-edges.yml
+  apps:
+  - Captivate
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: podcast hosting
+- partner_name: Spotify (own)
+  partner: spotify
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://help.captivate.fm/en/articles/3430043-how-to-get-your-podcast-on-spotify
+  mirror_of: spotify/integrations/spotify-integration-edges.yml
+  apps:
+  - Captivate
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: podcast hosting
 method: searched
 checked:
 - https://zapier.com/api/v4/apps/
+- https://iabtechlab.com/compliance-programs/compliant-companies/
+- https://podcasters.apple.com/partner-search
+- https://podcastindex.org/api/apps
+- https://raw.githubusercontent.com/Podcastindex-org/podcast-namespace/main/docs/element-support.md
+- https://support.spotify.com/us/creators/article/getting-your-podcast-on-spotify/
 source:
 - https://zapier.com/api/v4/apps/

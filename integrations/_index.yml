@@ -28,3 +28,103 @@
     builder: unknown (not in the directory record)
   status: not-a-workflow
   arazzo: null
+- slug: captivate-fm-podcast-index-apps-directory
+  label: Podcast Index (apps directory)
+  partner: podcastindex
+  partner_name: Podcast Index (apps directory)
+  category: open podcast namespace (Podcasting 2.0)
+  type: register
+  channel: standard-directory
+  evidence: https://podcastindex.org/apps
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: Podcast Index apps directory (podcastindex.org/api/apps)
+    standard: 'podcast: RSS namespace (Podcasting 2.0)'
+    spec_file: null
+    role: podcastindex-listed-app
+    registered_name: Captivate
+    register_id: https://www.captivate.fm/
+    app_types:
+    - hosting
+    supported_elements:
+    - Episode
+    - Funding
+    - GUID
+    - License
+    - Location
+    - Locked
+    - Medium
+    - OP3
+    - Podping
+    - Season
+    - Transcript
+    - Txt
+    - Value
+    matched_domain: captivate.fm
+    matched_by: domain
+    signal_note: 'participation only: the directory is self-listed and tests nothing (no certified_products); supported_elements
+      is a per-edge signal, never counted'
+    detected_by: sweep-podcasting-2-0.py
+    detected: '2026-10-21'
+  status: not-a-workflow
+  arazzo: null
+- slug: captivate-fm-iab-tech-lab-podcast-measurement-compliance
+  label: IAB Tech Lab Podcast Measurement compliance
+  partner: iab-tech-lab
+  partner_name: IAB Tech Lab Podcast Measurement compliance
+  category: podcast measurement certification
+  type: register
+  channel: standard-directory
+  evidence: https://iabtechlab.com/compliance-programs/compliant-companies/
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: 'IAB Tech Lab compliant companies: Podcast Measurement (iabtechlab.com/compliance-programs/compliant-companies/)'
+    standard: IAB Tech Lab Podcast Measurement Technical Guidelines
+    spec_file: null
+    role: iab-podcast-measurement-compliant
+    registered_name: Captivate
+    register_id: https://compliance.iabtechnologylab.com/compliant-companies-certs/1721666266508-07.17.2024_Captivate_-_IAB_Podcast_Measurement_Report.pdf
+    matched_domain: captivate.fm
+    matched_by: domain
+    certified_products:
+    - product_type: podcast measurement
+      standard_version: '2.2'
+      metrics:
+      - Download
+      - Listener
+      last_certified: '2024-07-19'
+      lapsed: true
+    signal_note: certified_products = ONE entry (product type podcast measurement); metrics and version are context;
+      lapsed when last certified is more than 365 days ago (annual renewal)
+    detected_by: sweep-podcasting-2-0.py
+    detected: '2026-10-21'
+  status: not-a-workflow
+  arazzo: null
+- slug: captivate-fm-apple-own
+  label: Apple (own)
+  partner: apple
+  partner_name: Apple (own)
+  category: podcast hosting
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.captivate.fm
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: captivate-fm-spotify-own
+  label: Spotify (own)
+  partner: spotify
+  partner_name: Spotify (own)
+  category: podcast hosting
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://help.captivate.fm/en/articles/3430043-how-to-get-your-podcast-on-spotify
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
