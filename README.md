@@ -1,4 +1,4 @@
-# Captivate (captivate-fm)
+# Captivate
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,95 +64,128 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Captivate is a growth-oriented podcast hosting, distribution, and analytics platform. Its public REST API at `https://api.captivate.fm` lets developers authenticate a user, read and manage shows and their RSS feeds, create and update episodes, upload and search media (audio) files, and pull detailed listening analytics ("insights") at the podcast and episode level.
+Captivate is a growth-oriented podcast hosting, distribution, and analytics platform. Its public REST API at https://api.captivate.fm lets developers authenticate a user, read and manage shows and their RSS feeds, create and update episodes, upload and search media (audio) files, and pull detailed listening analytics (insights) at the podcast and episode level. Access is self-serve - any account holder can generate a user ID and API token from the API section of their Captivate account and exchange them for a Bearer token. The API is documented as a public Postman collection at docs.captivate.fm.
 
-**Access model:** Public and self-serve. Any account holder generates a **user ID** and an **API token** from the API section of their Captivate account, then exchanges them at `POST /authenticate/token` for a **Bearer token** used on every other request. There is no partner application, sales gate, or approval step, and no separate API fee — API access is included with any active subscription. The API is documented as a public Postman collection at [docs.captivate.fm](https://docs.captivate.fm/).
+**Areas:** Podcasts · Podcast Hosting · Episodes · Media · Analytics · RSS
 
-**Transport:** The entire documented API is request/response REST over HTTPS. No public WebSocket or Server-Sent Events (streaming) surface is documented (see `review.yml`).
+## Captivate on APIs.io
 
-**Modeling note:** Every path, method, and request field below is transcribed directly from Captivate's live public Postman documentation. Captivate does not publish full JSON **response** schemas, so response bodies in the OpenAPI are modeled generically and flagged as such.
+Everything profiled for Captivate is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/captivate-fm/](https://apis.io/providers/captivate-fm/)** — or go straight to one of the APIs or properties below.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/captivate-fm/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/captivate-fm/refs/heads/main/apis.yml)
+### APIs (6)
 
-## Tags
+- [Captivate Analytics API](https://apis.io/apis/captivate-fm/captivate-fm-analytics-api/) — Podcast and episode listening analytics (insights).
+- [Captivate Authentication API](https://apis.io/apis/captivate-fm/captivate-fm-authentication-api/) — Exchange a user ID and API token for a Bearer token.
+- [Captivate Episodes API](https://apis.io/apis/captivate-fm/captivate-fm-episodes-api/) — List, read, create, and update episodes.
+- [Captivate Media API](https://apis.io/apis/captivate-fm/captivate-fm-media-api/) — Upload, read, list, and search a show's audio media.
+- [Captivate Shows API](https://apis.io/apis/captivate-fm/captivate-fm-shows-api/) — Read and update shows, upload artwork, get the RSS feed URL.
+- [Captivate Users API](https://apis.io/apis/captivate-fm/captivate-fm-users-api/) — Read a user and list the shows they can access or manage.
 
-- Podcasting
-- Podcast Hosting
-- Episodes
-- Media
-- Analytics
-- RSS
+### Published properties
 
-## Timestamps
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **Created:** 2026-07-05
-- **Modified:** 2026-07-05
+#### Agentic access (1)
 
-## APIs
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Captivate Users API
+- [Captivate Fm Agentic Access](https://apis.io/agentic-access/captivate-fm/captivate-fm-agentic-access/)
 
-Authenticate a user with their user ID and API token to obtain a Bearer token, retrieve a user record, and list the shows a user can access or the shows a user manages or owns.
+#### Collections (7)
 
-- **Base URL:** `https://api.captivate.fm`
-- `POST /authenticate/token`, `GET /users/{id}`, `GET /users/{id}/shows`, `GET /users/{id}/shows/manager`
+Postman and Open Collection request collections.
 
-### Captivate Shows API
+- [Captivate API](https://apis.io/collections/captivate-fm/open-captivate-fm/)
+- [Captivate Analytics API](https://apis.io/collections/captivate-fm/open-captivate-fm-analytics-api/)
+- [Captivate Analytics Authentication API](https://apis.io/collections/captivate-fm/open-captivate-fm-authentication-api/)
+- [Captivate Analytics Episodes API](https://apis.io/collections/captivate-fm/open-captivate-fm-episodes-api/)
+- [Captivate Analytics Media API](https://apis.io/collections/captivate-fm/open-captivate-fm-media-api/)
+- [Captivate Analytics Shows API](https://apis.io/collections/captivate-fm/open-captivate-fm-shows-api/)
+- [Captivate Analytics Users API](https://apis.io/collections/captivate-fm/open-captivate-fm-users-api/)
 
-Read and update a show's metadata (title, description, categories, author, language, links), upload show artwork, and retrieve the show's public RSS feed URL.
+#### Security (2)
 
-- **Base URL:** `https://api.captivate.fm`
-- `GET /shows/{id}/`, `PUT /shows/{id}`, `POST /shows/{id}/artwork`, `GET /shows/{id}/feed`
+Authentication, trust centre, and vulnerability disclosure.
 
-### Captivate Episodes API
+- [Captivate Fm Authentication](https://apis.io/security/captivate-fm/captivate-fm-authentication/)
+- [Captivate Fm Domain Security](https://apis.io/security/captivate-fm/captivate-fm-domain-security/)
 
-List a show's published and scheduled episodes, read a single episode, and create or update episodes — linking uploaded media, show notes, season and episode numbers, publish date and status, and Apple Podcasts metadata.
+#### Plans and pricing (1)
 
-- **Base URL:** `https://api.captivate.fm`
-- `GET /shows/{id}/episodes`, `GET /shows/{id}/episodes/scheduled`, `GET /episodes/{id}`, `POST /episodes`, `PUT /episodes/{id}`
+Published plans, tiers and prices.
 
-### Captivate Media API
+- [Captivate Fm Plans Pricing](https://apis.io/plans/captivate-fm/captivate-fm-plans-pricing/)
 
-Upload an audio media file to a show, retrieve a media record by ID, and list or search a show's media library with offset, order, and sort controls. Media is scoped to a single show and cannot be shared across shows.
+#### Rate limits (1)
 
-- **Base URL:** `https://api.captivate.fm`
-- `GET /media/{id}`, `POST /shows/{id}/media`, `GET /shows/{id}/media`, `GET /shows/{id}/media/search`
+Published request limits.
 
-### Captivate Analytics API
+- [Captivate Fm Rate Limits](https://apis.io/rate-limits/captivate-fm/captivate-fm-rate-limits/)
 
-Pull listening analytics (insights) for a podcast or a specific episode — overview, averages, all-time totals, month-by-month series, arbitrary date ranges broken down by location, browser, OS, device and episode, episode comparisons, and web-player analytics.
+#### FinOps (1)
 
-- **Base URL:** `https://api.captivate.fm`
-- `GET /insights/{showId}/overview`, `.../averages`, `.../total`, `.../monthly`; `POST /insights/{showId}/range`, `.../compare`, `.../web-player/{episodeId}` (plus per-episode variants)
+What the API costs to run, by operation.
 
-## Specifications
+- [Captivate Fm Finops](https://apis.io/finops/captivate-fm/captivate-fm-finops/)
 
-- [OpenAPI](openapi/captivate-fm-openapi.yml)
-- [Postman Collection](collections/captivate-fm.postman_collection.json)
-- [Open Collection](collections/captivate-fm.opencollection.json)
+## Where to find this API
 
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- [LinkedIn](https://www.linkedin.com/company/captivate-fm)
 - [Website](https://www.captivate.fm/)
 - [Documentation](https://docs.captivate.fm/)
-- [Support Documentation](https://help.captivate.fm/en/)
-- [Status Page](https://status.captivate.fm)
-- [Plans](plans/captivate-fm-plans-pricing.yml)
-- [Rate Limits](rate-limits/captivate-fm-rate-limits.yml)
-- [Fin Ops](finops/captivate-fm-finops.yml)
+- [Blog](https://www.captivate.fm/blog)
+- [Status](https://status.captivate.fm)
 
-## Pricing (confirmed 2026-07-05)
+## API Evangelist rating
 
-| Plan | Monthly | Annual | Downloads/mo |
-|------|---------|--------|--------------|
-| Personal | $19 | $204 | 30,000 |
-| Professional | $49 | $528 | 150,000 |
-| Business | $99 | $1,080 | 300,000 |
+**Kin Score 29.5** — thin · rubric 0.24.0 · scored 2026-10-17
 
-All plans include every feature (API access, unlimited podcasts, unlimited team members, analytics, dynamic content insertion) and a 30-day free trial; tiers differ only by monthly download allowance.
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 52.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 23.7 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 7.9 |
 
-## Maintainers
+**Agent readiness 20.4** — agent-aware
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/captivate-fm/](https://apis.io/providers/captivate-fm/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Captivate: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/captivate-fm/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
